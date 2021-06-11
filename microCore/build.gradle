@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdk 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 30
+        versionCode rootProject.ext.app[versionCode]
+        versionName rootProject.ext.app[versionName]
+
+        resConfigs "en", "zh"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "LOG_TAG", rootProject.ext.config["log_tag"])
+            buildConfigField("String", "DEFAULT_LANGUAGE", rootProject.ext.config["default_language"])
+            buildConfigField("String", "HTTP_BASEURL", rootProject.ext.config["http_baseurl"])
+
+            minifyEnabled false
+            debuggable true
+            ext.enableCrashlytics = false
+            ext.alwaysUpdateBuildId = false
+        }
+        release {
+            buildConfigField("String", "LOG_TAG", rootProject.ext.config["log_tag"])
+            buildConfigField("String", "DEFAULT_LANGUAGE", rootProject.ext.config["default_language"])
+            buildConfigField("String", "HTTP_BASEURL", rootProject.ext.config["http_baseurl"])
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            ext.enableCrashlytics = false
+            ext.alwaysUpdateBuildId = false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // dialogs
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    // eventbus
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    // permissionx
+    implementation 'com.permissionx.guolindev:permissionx:1.4.0'
+    // gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+    // okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    // rxjava
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+}
