@@ -12,8 +12,6 @@ android {
     defaultConfig {
         minSdk 23
         targetSdk 30
-        versionCode rootProject.ext.app[versionCode]
-        versionName rootProject.ext.app[versionName]
 
         resConfigs "en", "zh"
 
@@ -32,7 +30,6 @@ android {
             buildConfigField("String", "HTTP_BASEURL", rootProject.ext.config["http_baseurl"])
 
             minifyEnabled false
-            debuggable true
             ext.enableCrashlytics = false
             ext.alwaysUpdateBuildId = false
         }
@@ -43,7 +40,6 @@ android {
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            debuggable false
             ext.enableCrashlytics = false
             ext.alwaysUpdateBuildId = false
         }
